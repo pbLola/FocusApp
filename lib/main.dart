@@ -20,15 +20,61 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//configurações
 class Settings extends StatelessWidget {
+  final ValueChanged<int> onPomodoroDurationChange;
+  final int initialPomodoroDuration;
+
+  Settings(
+      {required this.onPomodoroDurationChange,
+      required this.initialPomodoroDuration});
+
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController =
+        TextEditingController(text: widget.initialPomodoroDuration.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text('Configurações'),
       ),
       body: Center(
-        child: Text('Settings Page'),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Duração do Pomodoro',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _textEditingController,
+                keyboardType: TextInputType.number,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final newDuration =
+                      int.tryParse(_textEditingController.text) ?? 0;
+                  widget.onPomodoroDurationChange(newDuration);
+                  Navigator.pop(context);
+                },
+                child: Text('Salvar'),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
