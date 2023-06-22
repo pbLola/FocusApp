@@ -28,8 +28,8 @@ class Information {
 
   factory Information.fromJson(Map<String, dynamic> json) {
     return Information(
-      title: json['title'],
-      body: json['body'],
+      title: json['title'] ?? '',
+      body: json['body'] ?? '',
     );
   }
 }
@@ -41,6 +41,9 @@ class InformacoesPage extends StatefulWidget {
 
 class _InformacoesPageState extends State<InformacoesPage> {
   Information? _information;
+  String _nome = '';
+  String _ano = '';
+  String _faculdade = '';
 
   Future<void> _fetchData() async {
     final response = await http.get(Uri.parse(
@@ -48,9 +51,10 @@ class _InformacoesPageState extends State<InformacoesPage> {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      final information = Information.fromJson(data);
       setState(() {
-        _information = information;
+        _nome = data['nome'];
+        _faculdade = data['faculdade'];
+        _ano = data['ano'];
       });
     } else {
       print('Erro na obtenção do JSON: ${response.statusCode}');
@@ -80,13 +84,20 @@ class _InformacoesPageState extends State<InformacoesPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(
+                      height: 15,
+                      width: 30,
+                    ),
                     Text(
-                      'Nome: ${_information!.title}',
+                      ' $_nome',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      ' $_faculdade',
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
-                      'Faculdade: ${_information!.body}',
+                      ' $_ano',
                       style: TextStyle(fontSize: 16),
                     ),
                   ],

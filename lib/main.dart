@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle(
             fontFamily: 'Bebas Neue',
-            fontSize: 20,
+            fontSize: 30,
           ),
         ),
       ),
