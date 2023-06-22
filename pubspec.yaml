@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.22.0
   percent_indicator: ^3.0.1
+  http: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +56,10 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+  fonts:
+      - family: Bebas Neue
+        fonts:
+          - asset: assets/fonts/BebasNeue-Regular.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

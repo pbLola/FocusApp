@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'informacoes.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,69 +13,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Focus',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Focus'),
-    );
-  }
-}
-
-//configurações
-class Settings extends StatelessWidget {
-  final ValueChanged<int> onPomodoroDurationChange;
-  final int initialPomodoroDuration;
-
-  Settings(
-      {required this.onPomodoroDurationChange,
-      required this.initialPomodoroDuration});
-
-  @override
-  _SettingsState createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
-  late TextEditingController _textEditingController;
-
-  @override
-  void initState() {
-    super.initState();
-    _textEditingController =
-        TextEditingController(text: widget.initialPomodoroDuration.toString());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Configurações'),
-      ),
-      body: Center(
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Duração do Pomodoro',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              TextField(
-                controller: _textEditingController,
-                keyboardType: TextInputType.number,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  final newDuration =
-                      int.tryParse(_textEditingController.text) ?? 0;
-                  widget.onPomodoroDurationChange(newDuration);
-                  Navigator.pop(context);
-                },
-                child: Text('Salvar'),
-              )
-            ],
+        primarySwatch: Colors.orange,
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'Bebas Neue',
+            fontSize: 20,
           ),
         ),
       ),
+      home: MyHomePage(title: 'Focus'),
     );
   }
 }
@@ -96,14 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isRunning = false;
   bool _isPaused = false;
   int _pausedTime = 0;
-
-  Widget SettingsPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Settings()),
-    );
-    return Container();
-  }
 
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -187,11 +125,11 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.info_rounded),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SettingsPage()),
+                MaterialPageRoute(builder: (context) => InformacoesPage()),
               );
             },
           ),
@@ -213,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   _formattedTime,
                   style: TextStyle(fontSize: 60.0),
                 ),
-                progressColor: Colors.blue,
+                progressColor: Colors.orange,
                 backgroundColor: Colors.grey,
               ),
             ),
